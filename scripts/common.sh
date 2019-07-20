@@ -68,7 +68,7 @@ jqRawStrTop() {
   local query="$1"
   local conf_file="$2"
 
-  jq -r ".\"$query\"" "$conf_file" || {
+  jq -r ".[\"$query\"]" "$conf_file" || {
     echo "[-] json raw top string parse failed" >&2
     abort 1
   }
@@ -78,7 +78,7 @@ jqIncRawArrayTop() {
   local query="$1"
   local conf_file="$2"
 
-  jq -r ".\"$query\"[]" "$conf_file" || {
+  jq -r ".[\"$query\"][]" "$conf_file" || {
     echo "[-] json top raw string string parse failed" >&2
     abort 1
   }
@@ -90,7 +90,7 @@ jqRawStr() {
   local query="$3"
   local conf_file="$4"
 
-  jq -r ".\"$api\".\"$conf\".\"$query\"" "$conf_file" || {
+  jq -r ".[\"$api\"][\"$conf\"][\"$query\"]" "$conf_file" || {
     echo "[-] json raw string parse failed" >&2
     abort 1
   }
@@ -102,7 +102,7 @@ jqIncRawArray() {
   local query="$3"
   local conf_file="$4"
 
-  jq -r ".\"$api\".naked.\"$query\"[]" "$conf_file" || {
+  jq -r ".[\"$api\"].naked[\"$query\"][]" "$conf_file" || {
     echo "[-] json raw string array parse failed" >&2
     abort 1
   }
@@ -111,7 +111,7 @@ jqIncRawArray() {
     return
   fi
 
-  jq -r ".\"$api\".full.\"$query\"[]" "$conf_file" || {
+  jq -r ".[\"$api\"].full[\"$query\"][]" "$conf_file" || {
     echo "[-] json raw string array parse failed" >&2
     abort 1
   }
